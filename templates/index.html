@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proje Takip Sistemi</title>
+    <link rel="icon" href="{{ url_for('static', filename='images/Yasokral18.jpg') }}" type="image/x-icon" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <h1 class="baslik">PROJE TAKIP SİSTEMİ</h1>
+    
+    <div class="top-controls">
+        <select id="languageSelect" class="language-select">
+            <option value="tr">Türkçe</option>
+            <option value="en">English</option>
+        </select>
+        <button id="themeToggleBtn" class="btn btn-theme">Koyu Tema</button>
+    </div>
+    
+    <div class="container">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Proje ara...">
+            <button id="newProjectBtn" class="btn btn-new">+ Yeni Proje</button>
+        </div>
+
+        <div class="filter-box">
+            <label id="statusFilterLabel" for="statusFilter">Durum:</label>
+            <div class="filter-options">
+                <label>
+                    <input type="checkbox" class="status-filter" value="completed" id="completedFilter">
+                    <span id="completedLabel">Tamamlandı</span>
+                </label>
+                <label>
+                    <input type="checkbox" class="status-filter" value="pending" id="pendingFilter">
+                    <span id="pendingLabel">Bitmemiş</span>
+                </label>
+            </div>
+        </div>
+        <div class="projects-list" id="projectsList"></div>
+        
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+<div id="modal" class="modal hidden">
+    <div class="modal-content">
+        <h2 id="modalTitle">Yeni Proje Ekle</h2>
+        <input type="text" id="projectName" placeholder="Proje adı...">
+        <input type="text" id="projectLanguage" placeholder="Kodlama dili (Örn: Python, Node.js...)">
+        <textarea id="projectDescription" placeholder="Açıklama..."></textarea>
+        
+        <button id="saveProjectBtn" class="btn btn-save">Kaydet</button>
+        <button id="closeModalBtn" class="btn btn-cancel">İptal</button>
+    </div>
+</div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
