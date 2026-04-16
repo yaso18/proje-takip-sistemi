@@ -1,9 +1,22 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, jsonify, render_template, request
 from psql import PostgreSqlDB
 
+# .env dosyasındaki verileri yükle
+load_dotenv()
+
 flask_app = Flask(__name__, template_folder='templates', static_folder='static')
 
-db = PostgreSqlDB("python")
+# Veritabanı bilgilerini env'den al (ikinci parametreler varsayılan değerdir)
+db_name = os.getenv('DB_NAME', 'python')
+db_user = os.getenv('DB_USER')
+db_password = os.getenv('DB_PASSWORD')
+db_host = os.getenv('DB_HOST', 'localhost')
+db_port = os.getenv('DB_PORT', '5432')
+
+# Bağlantıyı bu değişkenle kur
+db = PostgreSqlDB(db_name)
 db.connection()
 
 TABLE_NAME = "projes"
@@ -129,4 +142,5 @@ def delete_project(project_id):
     return jsonify({'message': 'Proje silindi'}), 200
 
 if __name__ == '__main__':
-    flask_app.run(debug=True,host='0.0.0.0', port=5000)
+    debug_mode = os.getenv('FLASK_DEBUG', 'True') == 'True'
+    flask_app.run(debug=debug_mode, host='0.0.0.0', port=5000)

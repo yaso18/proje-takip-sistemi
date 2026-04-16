@@ -1,15 +1,19 @@
 import psycopg2
 from psycopg2.extras import register_hstore
 from psycopg2 import sql 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class PostgreSqlDB:
-    def __init__(self, database):
-        # ! Bağlantı Bilgileri (Sizin bilgileriniz)
-        self.__host = "localhost"
-        self.__user = "postgres"
-        self.__password = "Yf25072013"
-        self.__port = "5432"
-        self.__database = database
+    def __init__(self, database=None):
+        self.__host = os.getenv('DB_HOST', 'localhost')
+        self.__user = os.getenv('DB_USER')
+        self.__password = os.getenv('DB_PASSWORD')
+        self.__port = os.getenv('DB_PORT', '5432')
+        self.__database = database if database else os.getenv('DB_NAME')
+
         self.__connection = None
         self.__cursor = None
 
